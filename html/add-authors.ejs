@@ -1,0 +1,18 @@
+<% include partials/header %>
+  <main>
+    <form class="authors" action="/addNewAuthor" method="post">
+
+      <input type="text" name="name" placeholder="Full name">
+      <br>
+
+      <input type="url" name="url" placeholder="Portrait Image URL">
+      <br>
+
+      <textarea name="biography" rows="8" cols="80" placeholder="Biography"></textarea>
+      <br>
+      <a href="/addNewAuthor"><button type="submit" name="button">Add Author</button></a>
+    </form>
+  </main>
+</body>
+
+</html>
