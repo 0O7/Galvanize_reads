@@ -8,22 +8,26 @@ const knexConfig = require('../knexfile')[environment];
 const knex = require('knex')(knexConfig);
 
 
+router.get('/index', (req, res) => {
+  res.render('index');
+  console.log("index page loaded!");
+});
 // -----------for Authors-------------
 router.get('/authors', (req, res) => {
-  knex("authors").then((data) => {
-    console.log('reaaaadding authors');
+  knex("authors").select('*').then((data) => {
     res.render('authors', {
       data
     });
   });
 });
 
+// Redirects to author-profile
 router.get('/authors/:id', (req, res) => {
   knex("authors")
     .where('id', req.params.id)
+    .orderBy('id', 'asc')
     .first()
     .then((data) => {
-      console.log('author id works!');
       res.render('author_profile', {
         data
       });
@@ -33,28 +37,63 @@ router.get('/authors/:id', (req, res) => {
 router.get('/add-author', (req, res) => {
   res.render('add-authors');
 });
+// Redirects to edit-books page'
+router.get('/edit-authors/:id', (req, res) => {
+  knex('authors')
+  .where('id',req.params.id)
+  .first()
+  .then((data)=>{
+  res.render('edit-authors',{
+    data
+    })
+  });
+});
 
-
-router.post('/addNewAuthor', (req, res) => {
-  knex('authors').insert({
+// adding new author data
+router.post('/authors', (req, res) => {
+console.log(req.body);
+  knex('authors')
+  .insert({
     author_name: req.body.name,
     author_biography: req.body.biography,
     author_url: req.body.url
     }, '*')
     .then((results) => {
-      res.send(results[0]);
-      console.log(req.body);
+      res.sendStatus(200)
+    })
+  });
+  // Updating a book
+  router.patch('/authors/:id',(req,res)=>{
+    knex('authors')
+    .where('id',req.params.id)
+    .update({
+      author_name: req.body.title,
+      author_url: req.body.url,
+      author_biography: req.body.biography
+    }, '*')
+    .then((results) =>{
+      res.sendStatus(200);
+    })
+    .catch((err) =>{
+      console.log((err));
     })
   });
 
-  // router.delete('/delete/:id', (req, res) => {
-  //   knex('authors')
-  //   .where(id,req.params.id)
-  //   // .del()
-  //   .then((results)=>{
-  //     console.log(results);
-  //     res.send(results[0]);
-  //   })
-  // })
+
+  //AJAX call to delete selected author
+  router.delete('/authors/delete/:id', (req, res) => {
+    console.log('it is about to be deleted');
+    knex('authors')
+      .where('id', req.params.id)
+      .first()
+      .del()
+      .then(() => {
+        console.log('deleted');
+        res.sendStatus(200)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  });
 
 module.exports = router;

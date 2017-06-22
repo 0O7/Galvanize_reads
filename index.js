@@ -1,5 +1,5 @@
 'use strict'
-
+// const methodOverride = require('method-override')
 const express = require('express');
 const port = process.env.PORT || 8000;
 const bodyParser = require('body-parser');
@@ -9,7 +9,7 @@ const path = require('path');
 const books = require('./routes/books_route');
 const authors = require('./routes/authors_route');
 
-
+// app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'html'));
 app.set('view engine', 'ejs');

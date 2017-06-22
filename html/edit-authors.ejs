@@ -1,0 +1,25 @@
+<% include partials/header %>
+
+  <main>
+
+    <div class="container">
+      <h2>Edit</h2>
+
+    <form>
+      <h4 id="id"><%=data.id%></h4>
+      <input type="text" id="name" value="<%=data.author_name%>">
+      <br>
+
+      <input type="url" id="url" value="<%=data.author_url%>">
+      <br>
+
+      <textarea id="biography" rows="8" cols="80" ><%=data.author_biography%></textarea>
+      <br>
+      <button class ="editAuthor" id='<%=data.id%>' type="submit" name="button" >Submit</button>
+
+    </form>
+  </div>
+  </main>
+  </body>
+
+  </html>

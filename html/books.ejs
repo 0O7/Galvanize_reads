@@ -1,10 +1,11 @@
 <% include partials/header %>
+
   </header>
   <main>
     <thead>
 
     </thead>
-
+    <input type="text" name="" value="">
     <% data.forEach((book) => { %>
       <div class="col s12 m7">
         <h2 class="header"><%=book.title %></h2>
@@ -24,8 +25,8 @@
               <div class="card-action">
                 <h4>Authors</h4>
                 <p><%= book.author_name%></p>
-                <button type="button" name="edit">Edit</button>
-                <a href="#" name='<%= book.id%>'></a><button class='deleteBooks' type="button">Delete</button>
+                <a href="/edit-books/<%=book.id%>"><button type="button" name="edit">Edit</button></a>
+                <button class='deleteBooks' type="button" id='<%= book.id%>'>Delete</button>
           </div>
         </div>
       </div>

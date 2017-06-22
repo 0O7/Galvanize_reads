@@ -1,6 +1,5 @@
 'use strict';
 
-
 const express = require('express');
 const router = express.Router();
 
@@ -30,7 +29,6 @@ router.get('/books', (req, res) => {
     res.render('books', {
       data
     });
-
   });
 });
 
@@ -48,11 +46,24 @@ router.get('/books/:id', (req, res) => {
     });
 });
 
+// Redirects to add-books page'
 router.get('/add-books', (req, res) => {
   res.render('add-books');
 });
 
-router.post('/addNewBooks', (req, res) => {
+// Redirects to edit-books page'
+router.get('/edit-books/:id', (req, res) => {
+  knex('books')
+  .where('id',req.params.id)
+  .first()
+  .then((data)=>{
+  res.render('edit-books',{
+    data
+    })
+  });
+});
+// adding a book
+router.post('/books/add', (req, res) => {
   knex('books')
     .insert({
       title: req.body.title,
@@ -61,22 +72,42 @@ router.post('/addNewBooks', (req, res) => {
       description: req.body.description
     }, '*')
     .then((results) => {
-      res.redirect('/books');
-
+      res.sendStatus(200);
     })
 });
 
+// Updating a book
+router.patch('/books/:id',(req,res)=>{
+  knex('books')
+  .where('id',req.params.id)
+  .update({
+    title: req.body.title,
+    genre: req.body.genre,
+    cover_url: req.body.url,
+    description: req.body.description
+  }, '*')
+  .then((results) =>{
+    res.sendStatus(200);
+  })
+  .catch((err) =>{
+    console.log((err));
+  })
+});
 
 
-router.delete('/delete/:id', (req, res) => {
-         knex("books")
-          .where('id', req.params.id)
-          .first()
-          .del()
-          .then(()=>{
-          res.sendStatus(200)
-          })
-  });
+//AJAX call to delete selected book
+router.delete('/books/delete/:id', (req, res) => {
+  knex("books")
+    .where('id', req.params.id)
+    .first()
+    .del()
+    .then(() => {
+      res.sendStatus(200)
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+});
 
 
 module.exports = router;

@@ -1,17 +1,25 @@
 <% include partials/header %>
+
   <main>
-    <form class="authors" action="/addNewAuthor" method="post">
 
-      <input type="text" name="name" placeholder="Full name">
+    <div class="container">
+      <h2>Add an Author</h2>
+
+    <form>
+
+      <input type="text" id="name" placeholder="Full name">
       <br>
 
-      <input type="url" name="url" placeholder="Portrait Image URL">
+      <textarea id="biography" rows="8" cols="80" placeholder="Biography"></textarea>
       <br>
 
-      <textarea name="biography" rows="8" cols="80" placeholder="Biography"></textarea>
+      <input type="url" id="url" placeholder="Portrait Image URL">
       <br>
-      <a href="/addNewAuthor"><button type="submit" name="button">Add Author</button></a>
+
+      <button class ="addAuthor" type="button" name="button" >Add Author</button>
+
     </form>
+  </div>
   </main>
 </body>
 
