@@ -15,7 +15,7 @@ const knex = require('knex')(knexConfig);
 
 router.get('/index', (req, res) => {
   res.render('index');
-  console.log("index page loaded!");
+
 });
 
 // -----------for Books-------------
@@ -24,7 +24,7 @@ router.get('/books', (req, res) => {
     .innerJoin('books_authors', 'books.id', 'books_authors.book_id')
     .innerJoin('authors', 'authors.id', 'books_authors.author_id')
     .then((data) => {
-      console.log(data[0]);
+      // console.log(data);
       res.render('books', {
         data
       });
@@ -71,8 +71,8 @@ router.get('/edit-books/:id', (req, res) => {
 });
 // adding a book
 router.post('/books/add', (req, res) => {
-  let authorID=req.body.author_id;
-   knex('books')
+  let authorID = req.body.author_id;
+  knex('books')
     .insert({
       title: req.body.title,
       genre: req.body.genre,
@@ -81,15 +81,13 @@ router.post('/books/add', (req, res) => {
     })
     .returning('id')
     .then((results) => {
-      console.log(results[0]);
-      console.log(authorID);
-    return knex('books_authors')
-      .insert({
-        book_id:results[0],
-        author_id:authorID
-      })
+      return knex('books_authors')
+        .insert({
+          book_id: results[0],
+          author_id: authorID
+        })
     })
-    .then((results)=>{
+    .then((results) => {
       res.redirect("/books");
 
     })
@@ -116,15 +114,24 @@ router.patch('/books/:id', (req, res) => {
 
 //AJAX call to delete selected book
 router.delete('/books/delete/:id', (req, res) => {
-  knex("books")
-    .where('id', req.params.id)
-    .first()
-    .del()
+  const bookID= req.params.id;
+  console.log(bookID);
+  knex('books_authors')
+  .del()
+    .where('book_id',bookID)
+
     .then(() => {
-      res.sendStatus(200)
-    })
-    .catch((err) => {
-      console.log(err);
+      return knex("books")
+        .first()
+        .del()
+        .where('id', bookID)
+        .then(() => {
+          res.sendStatus(200)
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+
     })
 });
 

@@ -21,7 +21,7 @@
               <div class="card-content">
                 <h4><%=book.genre%></h4>
               </div>
-        
+
             <div class="card-stacked">
               <div class="card-content">
                 <p> <%=book.description %></p>
@@ -37,8 +37,8 @@
                       <%}%>
 
                         <% })%>
-                          <a href="/edit-books/<%=book.id%>"><button type="button" name="edit">Edit</button></a>
-                          <button class='deleteBooks' type="button" id='<%= book.id%>'>Delete</button>
+                          <a href="/edit-books/<%=book.book_id%>"><button type="button" name="edit">Edit</button></a>
+                          <button class='deleteBooks' type="button" id='<%= book.book_id%>'>Delete</button>
                 </div>
               </div>
             </div>

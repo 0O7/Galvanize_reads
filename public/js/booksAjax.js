@@ -38,9 +38,9 @@ $('.editBook').click((a)=>{
     type: 'PATCH',
     data: editedBook,
     success(result) {
-      console.log("results");
+
       window.location.replace('/books');
-      console.log('results edited!');
+
     }
   })
 })
@@ -54,7 +54,7 @@ $('.editBook').click((a)=>{
       type: 'DELETE',
       success() {
         window.location.replace('/books');
-        console.log('Delete AJAX sent');
+
       }
     })
   });

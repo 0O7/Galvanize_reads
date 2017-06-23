@@ -1,9 +1,9 @@
 
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('books_authors',(table)=>{
-    table.increments('id');
-    table.integer('book_id');
-    table.integer('author_id');
+    table.increments('id').primary();
+    table.integer('book_id').unsigned().references('id').inTable('books').onDelete('CASCADE');
+    table.integer('author_id').unsigned().references('id').inTable('authors').onDelete('CASCADE');
     table.timestamps(true, true);
   })
 };
