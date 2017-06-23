@@ -1,12 +1,16 @@
 <% include partials/header %>
+
   <main>
     <thead>
     </thead>
     <tbody>
+      <%let count=0;%>
       <% data.forEach((author) => {%>
+        <%if (author.id != count) { %>
+          <% count = author.id %>
         <tr>
           <td>
-            <a href="/authors/<%= author.id %>">
+            <a href="/authors/<%= author.author_id %>">
               <img src="<%= author.author_url %>">
             </a>
             <h3>
@@ -17,13 +21,19 @@
             <p>
               <%= author.author_biography %>
             </p>
-            <p class="hello"></p>
+            <h4>Biography:</h4>
+            <%data.forEach((book)=> {%>
+              <%if (book.author_id === author.author_id ) { %>
+            <li><a href="/books/<%=book.book_id%>"><%= author.title%></a></li>
+              <%}%>
+            <% })%>
           </td>
         </tr>
         <a href="/edit-authors/<%=author.id%>"><button type="button" name="edit">Edit</button></a>
         <button class='authorDelete' id='<%=author.id%>' type="button">Delete</button>
         <br>
         <br>
+        <%}%>
         <% }); %>
     </tbody>
   </main>

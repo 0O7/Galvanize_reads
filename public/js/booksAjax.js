@@ -4,6 +4,7 @@ $(document).ready(() => {
   $('.addBook').click((a) => {
     a.preventDefault();
     let newBook = {
+      "author_id": $('.browser-default option:selected').attr('id'),
       "title": $('#title').val(),
       "genre": $('#genre').val(),
       "url": $('#url').val(),
@@ -17,7 +18,7 @@ $(document).ready(() => {
 
         window.location.replace('/books');
 
-        console.log(result + ' posted');
+
       }
     })
   });

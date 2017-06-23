@@ -5,23 +5,33 @@
     <div class="container">
       <h2>Add a Book</h2>
 
-    <form>
+      <form>
 
-      <input type="text" id="title" placeholder="Title">
-      <br>
+        <input type="text" id="title" placeholder="Title">
+        <br>
 
-      <input type="text" id="genre" placeholder="Genre">
-      <br>
+        <input type="text" id="genre" placeholder="Genre">
+        <br>
 
-      <input type="url" id="url" placeholder="Cover Image URL">
-      <br>
+        <input type="url" id="url" placeholder="Cover Image URL">
+        <br>
 
-      <textarea id="description" rows="8" cols="80" placeholder="Description"></textarea>
-      <br>
-      <button class ="addBook" type="button" name="button" >Add book</button>
+          <div class="input-field col s12">
+            <select name="authorField" class ='browser-default'>
+              <option disabled selected>Choose your option</option>
+              <% data.forEach((author) => {%>
+              <option id="<%=author.id%>"> <%=author.author_name%> </option>
+              <%})%>
+            </select>
+          </div>
 
-    </form>
-  </div>
+        <br>
+        <textarea id="description" rows="8" cols="80" placeholder="Description"></textarea>
+        <br>
+        <button class="addBook" type="button" name="button">Add book</button>
+
+      </form>
+    </div>
   </main>
   </body>
 

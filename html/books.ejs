@@ -6,32 +6,45 @@
 
     </thead>
     <input type="text" name="" value="">
-    <% data.forEach((book) => { %>
-      <div class="col s12 m7">
-        <h2 class="header"><%=book.title %></h2>
-        <div class="card horizontal">
-          <div class="card-image">
-            <a href="/books/<%= book.id %>">
+    <%  let count = 0; %>
+      <% data.forEach((book) => { %>
+        <%  if(book.book_id != count) { %>
+          <%  count = book.book_id %>
+            <div class="col s12 m7">
+              <h2 class="header"><%=book.title %></h2>
+              <div class="card horizontal">
+                <div class="card-image">
+                  <a href="/books/<%= book.book_id %>">
               <img src='<%=book.cover_url %>' />
             </div>
             <div class="card-stacked">
               <div class="card-content">
                 <h4><%=book.genre%></h4>
               </div>
+        
             <div class="card-stacked">
               <div class="card-content">
                 <p> <%=book.description %></p>
               </div>
               <div class="card-action">
-                <h4>Authors</h4>
-                <p><%= book.author_name%></p>
-                <a href="/edit-books/<%=book.id%>"><button type="button" name="edit">Edit</button></a>
-                <button class='deleteBooks' type="button" id='<%= book.id%>'>Delete</button>
-          </div>
-        </div>
-      </div>
-      </div>
-      <% }); %>
+                </a>
+                  <h4>Authors</h4>
+                  <%data.forEach((author)=> {%>
+                    <%if (author.book_id === book.book_id) { %>
+                      <li>
+                        <a href="/authors/<%=author.author_id%>"><%= author.author_name%></a>
+                      </li>
+                      <%}%>
+
+                        <% })%>
+                          <a href="/edit-books/<%=book.id%>"><button type="button" name="edit">Edit</button></a>
+                          <button class='deleteBooks' type="button" id='<%= book.id%>'>Delete</button>
+                </div>
+              </div>
+            </div>
+            </div>
+            <%}%>
+              <% }); %>
 
 
   </main>
