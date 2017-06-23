@@ -5,11 +5,15 @@
     <thead>
 
     </thead>
-    <input type="text" name="" value="">
+    <div id="test-list">
+   <input type="text" class="fuzzy-search" />
+   <ul class="list">
     <%  let count = 0; %>
       <% data.forEach((book) => { %>
         <%  if(book.book_id != count) { %>
           <%  count = book.book_id %>
+          <li>
+            <p class="name"><%=book.genre%></p>
             <div class="col s12 m7">
               <h2 class="header"><%=book.title %></h2>
               <div class="card horizontal">
@@ -19,7 +23,7 @@
             </div>
             <div class="card-stacked">
               <div class="card-content">
-                <h4><%=book.genre%></h4>
+                <h4<%=book.genre%></h4>
               </div>
 
             <div class="card-stacked">
@@ -31,9 +35,11 @@
                   <h4>Authors</h4>
                   <%data.forEach((author)=> {%>
                     <%if (author.book_id === book.book_id) { %>
+                      <ul>  
                       <li>
                         <a href="/authors/<%=author.author_id%>"><%= author.author_name%></a>
                       </li>
+                    </ul>
                       <%}%>
 
                         <% })%>
@@ -43,13 +49,17 @@
               </div>
             </div>
             </div>
-            <%}%>
-              <% }); %>
-
+            </div>
+          </li>
+          <%}%>
+          <% }); %>
+        </ul>
+        </div>
 
   </main>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="./js/booksAjax.js" type="text/javascript"></script>
+  <script src="/js/bookSearch.js" type="text/javascript"></script>
 
   </body>
 
