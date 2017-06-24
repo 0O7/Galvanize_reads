@@ -1,13 +1,21 @@
 <% include partials/header %>
   <main>
 
+    <div class="container center-align">
+        <br><br><br><br><br>
+        <h5>Please select the following</h5>
+        <br>
+        <br>
 
-    <h5>Impatient? Try the below search function</h5>
+        <div class="row">
 
-    <textarea class='lable-icon' id='search' rows="1" cols="50" placeholder="Enter your search"></textarea>
-    <button type="submit" name="search">Submit</button>
+          <a href="/books"><button class="waves-effect waves-light btn-large" type="submit" name="search">Books</button></a>
+
+          <a href="/authors"><button class="waves-effect waves-light btn-large" type="submit" name="search">Authors</button></a>
+        </div>
+      <br><br><br><br><br>
+    </div>
   </main>
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-</body>
 
-</html>
+  </body>
+<% include partials/footer %>
